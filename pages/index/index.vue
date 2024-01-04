@@ -1,8 +1,12 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
+	<view>
+		<view class="uni-margin-wrap">
+			<swiper class="swiper" circular :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
+				:duration="duration">
+				<swiper-item v-for="item in swiperData">
+					<view class="swiper-item">{{item.bg}}</view>
+				</swiper-item>
+			</swiper>
 		</view>
 	</view>
 </template>
@@ -11,7 +15,20 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: 'Hello',
+				background: ['red', 'yellow', 'green'],
+				indicatorDots: true,
+				autoplay: true,
+				interval: 2000,
+				duration: 500,
+				swiperData: [
+					{
+						bg: "blue"
+					},
+					{
+						bg: "green"
+					}
+				]
 			}
 		},
 		onLoad() {
@@ -24,29 +41,35 @@
 </script>
 
 <style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+	
+	.swiper {
+		height: 400rpx;
 	}
 
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
+	.swiper-item {
+		display: block;
+		height: 300rpx;
+		line-height: 300rpx;
+		text-align: center;
 	}
 
-	.text-area {
-		display: flex;
-		justify-content: center;
+	.swiper-list {
+		margin-top: 40rpx;
+		margin-bottom: 0;
 	}
 
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+	.uni-common-mt {
+		margin-top: 60rpx;
+		position: relative;
+	}
+
+	.info {
+		position: absolute;
+		right: 20rpx;
+	}
+
+	.uni-padding-wrap {
+		width: 550rpx;
+		padding: 0 100rpx;
 	}
 </style>
