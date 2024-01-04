@@ -7,10 +7,17 @@
 		</view>
 		<view class="login-continer">
 			<uni-forms :modelValue="loginForm">
-				<uni-easyinput prefixIcon="phone" v-model="loginForm.phone" placeholder="请输入手机账号">
+				<uni-easyinput prefixIcon="phone" v-model="loginForm.username" placeholder="请输入手机账号">
 				</uni-easyinput>
-				<uni-easyinput style="margin-top: 20px;" prefixIcon="locked" v-model="loginForm.phone" placeholder="请输入密码">
+				
+				<uni-easyinput style="margin-top: 20px;" prefixIcon="locked" v-model="loginForm.password" placeholder="请输入密码">
 				</uni-easyinput>
+				
+				<view class="captcha">
+					<input v-model="loginForm.captcha" class="uni-input captcha-input" type="number" placeholder="请输入验证码" />
+					<cover-image :src="captchaPath"></cover-image>
+				</view>
+				
 
 				<view class="login-select">
 					<label class="radio" @click="change()" :checked="remberPassword">
@@ -31,15 +38,30 @@
 </template>
 
 <script>
+	import { loginApi, getCaptchaApi} from '@/api/user/user.js'
+ 	
 	export default {
 		data() {
 			return {
 				loginForm: {
-					phone: "",
-					password: ""
+					username: "",
+					password: "",
+					captcha: "",
+					uuid: ""
 				},
-				remberPassword: false
+				remberPassword: false,
+				captchaPath: ""
 			}
+		},
+		created() {
+			this.loginForm.uuid = Math.random()
+			getCaptchaApi(this.loginForm.uuid)
+			.then(res=>{
+				this.captchaPath = res.data
+				console.log(this.captchaPath)
+			})
+		},
+		onMounted() {
 		},
 		methods: {
 			login() {
@@ -97,4 +119,12 @@
 		text-align: center;
 		margin-top: 20px;
 	}
+	
+	.captcha{
+		display: flex;
+		justify-content: space-between;
+		margin-top: 20px;
+		text-align: center;
+	}
+	
 </style>
