@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "datav"
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
@@ -12,14 +12,28 @@
 				"navigationBarTitleText": "Datav",
 				"backgroundColor": "#CCCCCC"
 			}
+<<<<<<< HEAD
 		},
 		{
 			"path": "pages/user/register",
 			"style": {
 				"navigationBarTitleText": "Datav",
 				"backgroundColor": "#CCCCCC"
+=======
+		}, {
+			"path": "pages/visual/create/index",
+			"style": {
+				"navigationBarTitleText": "创建文件"
+			}
+		},
+		{
+			"path": "pages/person/person/index",
+			"style": {
+				"navigationBarTitleText": "我的"
+>>>>>>> c3c517651ad891370bf139a5f6d83fb1de3b0b82
 			}
 		}
+
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -27,5 +41,27 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"uniIdRouter": {}
+	"uniIdRouter": {},
+
+	"tabBar": {
+		"borderStyle": "black",
+		"selectedColor": "#FB7299",
+		"color": "#444444",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/home.jpg",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/visual/create/index",
+			"iconPath": "static/create.png",
+			"text": "创建文件"
+		}, {
+			"pagePath": "pages/person/person/index",
+			"iconPath": "static/person.jpg",
+			"text": "我的"
+		}]
+	}
+
+
+
 }
