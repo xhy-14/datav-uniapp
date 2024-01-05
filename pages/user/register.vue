@@ -1,29 +1,23 @@
 <template>
-	<view class="login-view">
+	<view class="register-view">
 		<cover-image src="../../static/title.png" class="datav-icon"></cover-image>
-		<view class="login-title"><text>欢迎注册</text></view>
-		<view class="login-title-child">
+		<view class="register-title"><text>欢迎注册</text></view>
+		<view class="register-title-child">
 			<text>请使用已注册的账号登录</text>
 		</view>
-		<view class="login-continer">
-			<uni-forms :modelValue="loginForm">
-				<uni-easyinput prefixIcon="phone" v-model="loginForm.phone" placeholder="请输入手机账号">
+		<view class="register-continer">
+			<uni-forms :modelValue="registerForm">
+				<uni-easyinput prefixIcon="phone" v-model="registerForm.userForm.mobile" placeholder="请输入手机账号">
 				</uni-easyinput>
-				<uni-easyinput style="margin-top: 20px;" prefixIcon="locked" v-model="loginForm.phone" placeholder="请输入密码">
+				<uni-easyinput style="margin-top: 20px;" prefixIcon="locked" v-model="registerForm.userForm.password" placeholder="请输入密码">
 				</uni-easyinput>
-
-				<view class="login-select">
-					<label class="radio" @click="change()" :checked="remberPassword">
-						<radio value="r2" />记住密码
-					</label>
-					
-					<uni-link href="https://uniapp.dcloud.io/" text="忘记密码?"></uni-link>
-				</view>
-
+				<uni-easyinput style="margin-top: 20px;" prefixIcon="locked" v-model="registerForm.passwordAgain" placeholder="请再输入密码">
+				</uni-easyinput>
+				
 			</uni-forms>
-			<button class="login-submit" type="primary" @click="login">登录</button>
+			<button class="register-submit" type="primary" @click="register">注册</button>
 			<view class="to-register">
-				<uni-link href="https://uniapp.dcloud.io/" text="没有账号?立即注册"></uni-link>
+				<uni-link href="https://uniapp.dcloud.io/" text="已有账号?立即登录"></uni-link>
 			</view>
 		</view>
 	</view>
@@ -31,19 +25,36 @@
 </template>
 
 <script>
+	import {registerApi} from '@/api/user/user.js'
 	export default {
 		data() {
 			return {
-				loginForm: {
-					phone: "",
-					password: ""
-				},
-				remberPassword: false
+				registerForm: {
+					userForm: {
+						mobile: "",
+						password: ""
+					},
+					passwordAgain: ""
+				}
 			}
 		},
 		methods: {
-			login() {
-
+			register() {
+				if( this.registerForm.passwordAgain != this.registerForm.userForm.password) {
+					// 后期修改
+					alert("两次密码不一致！")
+					return 
+				}
+				registerApi(this.registerForm.userForm)
+				.then(res=>{
+					alert("注册成功！")
+					uni.reLaunch({
+						url: 'pages/user/register'
+					})
+				})
+				.catch(err=>{{
+					console.log("err")
+				}})
 			},
 			change() {
 				this.remberPassword = !this.remberPassword
@@ -55,14 +66,14 @@
 
 <style>
 	
-	.login-title {
+	.register-title {
 		margin: 0 auto;
 		width: 70%;
 		text-align: center;
 		font-size: 36px;
 	}
 
-	.login-title-child {
+	.register-title-child {
 		text-align: center;
 		margin-top: 6px;
 		color: #cccc;
@@ -74,21 +85,21 @@
 		margin-top: 49px;
 	}
 
-	.login-continer {
+	.register-continer {
 		width: 70%;
 		margin: 0 auto;
 	}
 
-	.login-continer {
+	.register-continer {
 		margin-top: 20px;
 	}
 	
-	.login-select{
+	.register-select{
 		margin-top: 10px;
 		display: flex;
 		justify-content: space-between;
 	}
-	.login-submit{
+	.register-submit{
 		margin-top: 20px;
 		border-radius: 30px;
 	}

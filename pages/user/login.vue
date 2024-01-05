@@ -7,7 +7,7 @@
 		</view>
 		<view class="login-continer">
 			<uni-forms :modelValue="loginForm">
-				<uni-easyinput prefixIcon="phone" v-model="loginForm.username" placeholder="请输入用户名">
+				<uni-easyinput prefixIcon="phone" v-model="loginForm.mobile" placeholder="请输入用户名">
 				</uni-easyinput>
 
 				<uni-easyinput style="margin-top: 20px;" prefixIcon="locked" v-model="loginForm.password"
@@ -56,7 +56,7 @@
 		data() {
 			return {
 				loginForm: {
-					username: "",
+					mobile: "",
 					password: "",
 					captcha: "",
 					uuid: ""
@@ -76,7 +76,7 @@
 				console.log(1)
 				loginApi(this.loginForm)
 					.then(res => {
-						console.log(res)
+						alert(res.msg)
 					})
 					.catch(err => {
 						this.messageToggle('error', "登录异常, 请重试")

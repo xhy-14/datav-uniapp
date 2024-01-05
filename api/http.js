@@ -7,8 +7,8 @@ const http = {
 		return new Promise((resolve, reject) => {
 			uni.request(config)
 				.then(res => {
-					const response = beforeResponse(res)
-					resolve(res)
+					let response = beforeResponse(res)
+					resolve(response)
 				})
 				.catch(err => {
 					errorHandle()
