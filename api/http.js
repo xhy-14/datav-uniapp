@@ -21,7 +21,7 @@ const http = {
 		return this.request({
 			url: url,
 			data: params,
-			methods: 'GET'
+			method: 'GET'
 		})
 	},
 
@@ -29,7 +29,8 @@ const http = {
 		return this.request({
 			url: url,
 			data: data,
-			methods: 'POST'
+			method: 'POST',
+			dataType: "json"
 		})
 	}
 }

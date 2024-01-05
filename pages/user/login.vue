@@ -7,23 +7,25 @@
 		</view>
 		<view class="login-continer">
 			<uni-forms :modelValue="loginForm">
-				<uni-easyinput prefixIcon="phone" v-model="loginForm.username" placeholder="请输入手机账号">
+				<uni-easyinput prefixIcon="phone" v-model="loginForm.username" placeholder="请输入用户名">
 				</uni-easyinput>
-				
-				<uni-easyinput style="margin-top: 20px;" prefixIcon="locked" v-model="loginForm.password" placeholder="请输入密码">
+
+				<uni-easyinput style="margin-top: 20px;" prefixIcon="locked" v-model="loginForm.password"
+					placeholder="请输入密码">
 				</uni-easyinput>
-				
+
 				<view class="captcha">
-					<input v-model="loginForm.captcha" class="uni-input captcha-input" type="number" placeholder="请输入验证码" />
+					<input password v-model="loginForm.captcha" class="uni-input captcha-input" type="text"
+						placeholder="请输入验证码" />
 					<cover-image :src="captchaPath"></cover-image>
 				</view>
-				
+
 
 				<view class="login-select">
 					<label class="radio" @click="change()" :checked="remberPassword">
 						<radio value="r2" />记住密码
 					</label>
-					
+
 					<uni-link href="https://uniapp.dcloud.io/" text="忘记密码?"></uni-link>
 				</view>
 
@@ -33,13 +35,23 @@
 				<uni-link href="https://uniapp.dcloud.io/" text="没有账号?立即注册"></uni-link>
 			</view>
 		</view>
+
+		<uni-popup class="loginMessage" ref="loginMessage" type="message">
+			<uni-popup-message :type="msgType" :message="messageText" :duration="2000"></uni-popup-message>
+		</uni-popup>
 	</view>
 
 </template>
 
 <script>
-	import { loginApi, getCaptchaApi} from '@/api/user/user.js'
- 	
+	import {
+		loginApi,
+		getCaptchaApi,
+	} from '@/api/user/user.js'
+	import http from '../../api/http'
+	import {
+		getUUID
+	} from '@/utils/common.js'
 	export default {
 		data() {
 			return {
@@ -50,33 +62,42 @@
 					uuid: ""
 				},
 				remberPassword: false,
-				captchaPath: ""
+				captchaPath: "",
+				messageText: ""
 			}
 		},
 		created() {
-			this.loginForm.uuid = Math.random()
-			getCaptchaApi(this.loginForm.uuid)
-			.then(res=>{
-				this.captchaPath = res.data
-				console.log(this.captchaPath)
-			})
+			this.loginForm.uuid = getUUID()
+			this.captchaPath = http.baseUrl + "captcha.jpg?uuid=" + this.loginForm.uuid
 		},
-		onMounted() {
-		},
+		onMounted() {},
 		methods: {
 			login() {
-
+				console.log(1)
+				loginApi(this.loginForm)
+					.then(res => {
+						console.log(res)
+					})
+					.catch(err => {
+						this.messageToggle('error', "登录异常, 请重试")
+						console.log(err)
+					})
 			},
 			change() {
 				this.remberPassword = !this.remberPassword
 				console.log(this.remberPassword)
+			},
+			messageToggle(type, msg) {
+				this.msgType = type
+				this.messageText = `${msg}`
+				console.log(this.messageText)
+				this.$refs.loginMessage.open()
 			}
 		}
 	}
 </script>
 
 <style>
-	
 	.login-title {
 		margin: 0 auto;
 		width: 70%;
@@ -104,27 +125,31 @@
 	.login-continer {
 		margin-top: 20px;
 	}
-	
-	.login-select{
+
+	.login-select {
 		margin-top: 10px;
 		display: flex;
 		justify-content: space-between;
 	}
-	.login-submit{
+
+	.login-submit {
 		margin-top: 20px;
 		border-radius: 30px;
 	}
-	
-	.to-register{
+
+	.to-register {
 		text-align: center;
 		margin-top: 20px;
 	}
-	
-	.captcha{
+
+	.captcha {
 		display: flex;
 		justify-content: space-between;
 		margin-top: 20px;
 		text-align: center;
 	}
-	
+	.loginMessage{
+		position: fixed;
+		top: 50px;
+	}
 </style>

@@ -12,6 +12,13 @@
 				"navigationBarTitleText": "Datav",
 				"backgroundColor": "#CCCCCC"
 			}
+		},
+		{
+			"path": "pages/user/register",
+			"style": {
+				"navigationBarTitleText": "Datav",
+				"backgroundColor": "#CCCCCC"
+			}
 		}
 	],
 	"globalStyle": {
