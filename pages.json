@@ -12,15 +12,15 @@
 				"navigationBarTitleText": "Datav",
 				"backgroundColor": "#CCCCCC"
 			}
-<<<<<<< HEAD
 		},
 		{
 			"path": "pages/user/register",
 			"style": {
 				"navigationBarTitleText": "Datav",
 				"backgroundColor": "#CCCCCC"
-=======
-		}, {
+			}
+		}, 
+		{
 			"path": "pages/visual/create/index",
 			"style": {
 				"navigationBarTitleText": "创建文件"
@@ -30,7 +30,6 @@
 			"path": "pages/person/person/index",
 			"style": {
 				"navigationBarTitleText": "我的"
->>>>>>> c3c517651ad891370bf139a5f6d83fb1de3b0b82
 			}
 		}
 
