@@ -17,7 +17,7 @@
 			</uni-forms>
 			<button class="register-submit" type="primary" @click="register">注册</button>
 			<view class="to-register">
-				<uni-link href="https://uniapp.dcloud.io/" text="已有账号?立即登录"></uni-link>
+				<uni-link href="/#/pages/user/login" text="已有账号?立即登录"></uni-link>
 			</view>
 		</view>
 	</view>
@@ -40,6 +40,19 @@
 		},
 		methods: {
 			register() {
+				if(this.registerForm.userForm.mobile === ''){
+					alert("账号不能为空")
+					return
+				}
+
+				else if(this.registerForm.userForm.mobile.length != 11){
+					alert("输入的电话号码必须是11位长！")
+					return
+				}
+				else if(this.registerForm.userForm.password.length <8 || this.registerForm.userForm.password.length > 16){
+					alert("密码长度必须为8-16位")
+					return
+				} 
 				if( this.registerForm.passwordAgain != this.registerForm.userForm.password) {
 					// 后期修改
 					alert("两次密码不一致！")

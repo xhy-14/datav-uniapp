@@ -7,7 +7,7 @@
 		</view>
 		<view class="login-continer">
 			<uni-forms :modelValue="loginForm">
-				<uni-easyinput prefixIcon="phone" v-model="loginForm.mobile" placeholder="请输入用户名">
+				<uni-easyinput prefixIcon="phone" v-model="loginForm.mobile" placeholder="请输入电话号码 ">
 				</uni-easyinput>
 
 				<uni-easyinput style="margin-top: 20px;" prefixIcon="locked" v-model="loginForm.password"
@@ -32,7 +32,7 @@
 			</uni-forms>
 			<button class="login-submit" type="primary" @click="login">登录</button>
 			<view class="to-register">
-				<uni-link href="https://uniapp.dcloud.io/" text="没有账号?立即注册"></uni-link>
+				<uni-link href="/#/pages/user/register" text="没有账号?立即注册"></uni-link>
 			</view>
 		</view>
 
@@ -74,13 +74,37 @@
 		methods: {
 			login() {
 				console.log(1)
+				if(this.loginForm.mobile === '' ){
+					alert("输入电话号码不能为空！")
+					return
+				}
+				else if(this.loginForm.password === ''){
+					alert("密码不能为空！")
+					return 
+				}
+				else if(this.loginForm.captcha === ''){
+					alert("验证码不能为空！")
+					return
+				}
+				else if(this.loginForm.mobile.length != 11){
+					alert("输入的电话号码必须是11位长！")
+					return
+				}
+				else if(this.loginForm.password.length <8 || this.loginForm.password.length > 16){
+					alert("密码长度必须为8-16位")
+					return
+				} 
 				loginApi(this.loginForm)
 					.then(res => {
-						alert(res.msg)
+						alert(res.msg) 
+						uni.reLaunch({
+							url: '/pages/index/index'
+						})
 					})
 					.catch(err => {
 						this.messageToggle('error', "登录异常, 请重试")
 						console.log(err)
+						// 判断账号不存在、错误、密码错误、验证码错误的部分
 					})
 			},
 			change() {
