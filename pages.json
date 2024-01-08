@@ -1,6 +1,16 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/index/guide",
+			"style": {
+				"navigationBarTitleText": "", //引导页
+				"titleNView": false,
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "首页"
@@ -19,7 +29,7 @@
 				"navigationBarTitleText": "Datav",
 				"backgroundColor": "#CCCCCC"
 			}
-		}, 
+		},
 		{
 			"path": "pages/visual/create/index",
 			"style": {
