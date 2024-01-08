@@ -16,7 +16,8 @@
 		</view>
 		<view v-if="currentIndex > 2" class="arrow arrow-right">
 			<view style="text-align: center; margin-top: 18px;">
-				<uni-link href="" text="开始" style="color: aliceblue;text-decoration: none;"></uni-link>
+				<uni-link href="https://uniapp.dcloud.io/" text="开始"
+					style="color: aliceblue;text-decoration: none;"></uni-link>
 			</view>
 		</view>
 
