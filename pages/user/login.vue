@@ -22,8 +22,8 @@
 
 
 				<view class="login-select">
-					<label class="radio" @click="change()" :checked="remberPassword">
-						<radio value="r2" />记住密码
+					<label class="radio" @click="change()" >
+						<radio value="r2" @click="change()" :checked="remberPassword" />记住密码
 					</label>
 
 					<uni-link href="https://uniapp.dcloud.io/" text="忘记密码?"></uni-link>
@@ -37,7 +37,7 @@
 		</view>
 
 		<uni-popup class="loginMessage" ref="loginMessage" type="message">
-			<uni-popup-message :type="msgType" :message="messageText" :duration="2000"></uni-popup-message>
+			<uni-popup-message :type="msgType" :message="messageText" duration="2000"></uni-popup-message>
 		</uni-popup>
 	</view>
 
@@ -63,7 +63,10 @@
 				},
 				remberPassword: false,
 				captchaPath: "",
-				messageText: ""
+				messageText: "",
+				msgType: ""
+				
+				
 			}
 		},
 		created() {
@@ -75,36 +78,48 @@
 			login() {
 				console.log(1)
 				if(this.loginForm.mobile === '' ){
-					alert("输入电话号码不能为空！")
+					this.messageToggle("error","输入电话号码不能为空")
 					return
 				}
 				else if(this.loginForm.password === ''){
-					alert("密码不能为空！")
+					this.messageToggle("error","密码不能为空")
 					return 
 				}
 				else if(this.loginForm.captcha === ''){
-					alert("验证码不能为空！")
+					this.messageToggle("error","验证码不能为空")
 					return
 				}
 				else if(this.loginForm.mobile.length != 11){
-					alert("输入的电话号码必须是11位长！")
+					this.messageToggle("error","输入的电话号码必须是11位长！")
 					return
 				}
 				else if(this.loginForm.password.length <8 || this.loginForm.password.length > 16){
-					alert("密码长度必须为8-16位")
+					this.messageToggle("error","密码长度必须为8-16位")					
 					return
 				} 
 				loginApi(this.loginForm)
 					.then(res => {
-						alert(res.msg) 
-						uni.reLaunch({
-							url: '/pages/index/index'
-						})
+						// 判断账号不存在、错误、密码错误、验证码错误的部分
+						// 帐号不存在
+						let statusCode = res.code;
+						if(statusCode === "A0201"){
+							this.messageToggle("error","用户不存在");
+							return;
+						}
+						else if(statusCode === "A0210"){
+							this.messageToggle("error","用户密码错误");
+							return;
+						}
+						else{
+							this.messageToggle("success","欢迎登录");
+							uni.reLaunch({
+								url: '/pages/index/index'
+							})
+						}
 					})
 					.catch(err => {
 						this.messageToggle('error', "登录异常, 请重试")
 						console.log(err)
-						// 判断账号不存在、错误、密码错误、验证码错误的部分
 					})
 			},
 			change() {

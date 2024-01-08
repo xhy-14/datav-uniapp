@@ -3,7 +3,7 @@
 		<cover-image src="../../static/title.png" class="datav-icon"></cover-image>
 		<view class="register-title"><text>欢迎注册</text></view>
 		<view class="register-title-child">
-			<text>请使用已注册的账号登录</text>
+			<text>欢迎使用Dataswap</text>
 		</view>
 		<view class="register-continer">
 			<uni-forms :modelValue="registerForm">
@@ -19,6 +19,9 @@
 			<view class="to-register">
 				<uni-link href="/#/pages/user/login" text="已有账号?立即登录"></uni-link>
 			</view>
+			<uni-popup class="loginMessage" ref="loginMessage" type="message">
+				<uni-popup-message :type="msgType" :message="messageText" duration="2000"></uni-popup-message>
+			</uni-popup>
 		</view>
 	</view>
 
@@ -35,31 +38,41 @@
 						password: ""
 					},
 					passwordAgain: ""
-				}
+				},
+				messageText: "",
+				msgType: ""
 			}
 		},
 		methods: {
 			register() {
 				if(this.registerForm.userForm.mobile === ''){
-					alert("账号不能为空")
+					this.messageToggle("error","输入电话号码不能为空")
 					return
 				}
-
 				else if(this.registerForm.userForm.mobile.length != 11){
-					alert("输入的电话号码必须是11位长！")
+					this.messageToggle("error","输入的电话号码必须是11位长！")
 					return
 				}
 				else if(this.registerForm.userForm.password.length <8 || this.registerForm.userForm.password.length > 16){
-					alert("密码长度必须为8-16位")
+					this.messageToggle("error","密码长度必须为8-16位")					
 					return
 				} 
 				if( this.registerForm.passwordAgain != this.registerForm.userForm.password) {
 					// 后期修改
-					alert("两次密码不一致！")
-					return 
+					this.messageToggle("error","两次输入密码不一样")					
+					return
 				}
 				registerApi(this.registerForm.userForm)
 				.then(res=>{
+					let statusCode = res.code;
+					if(statusCode === "A0151"){
+						this.messageToggle("error","手机格式校验失败");
+						return;
+					}
+					if(statusCode === "A0111"){
+						this.messageToggle("error","手机号已被注册");
+						return;
+					}
 					alert("注册成功！")
 					uni.reLaunch({
 						url: 'pages/user/register'
@@ -69,9 +82,12 @@
 					console.log("err")
 				}})
 			},
-			change() {
-				this.remberPassword = !this.remberPassword
-				console.log(this.remberPassword)
+
+			messageToggle(type, msg) {
+				this.msgType = type
+				this.messageText = `${msg}`
+				console.log(this.messageText)
+				this.$refs.loginMessage.open()
 			}
 		}
 	}
