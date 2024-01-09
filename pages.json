@@ -26,10 +26,20 @@
 				"navigationBarTitleText": "创建文件"
 			}
 		},
+
 		{
-			"path": "pages/person/person/index",
+			"path": "pages/person/person/personCenter",
 			"style": {
 				"navigationBarTitleText": "我的"
+				
+			}
+		},
+		{
+			"path" : "pages/user/forgetPassword",
+			"style" : 
+			{
+				"navigationBarTitleText": "Datav",
+				"backgroundColor": "#CCCCCC"
 			}
 		}
 

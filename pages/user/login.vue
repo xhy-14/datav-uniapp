@@ -26,13 +26,13 @@
 						<radio value="r2" @click="change()" :checked="remberPassword" />记住密码
 					</label>
 
-					<uni-link href="https://uniapp.dcloud.io/" text="忘记密码?"></uni-link>
+					<uni-link href="/pages/user/forgetPassword" text="忘记密码?"></uni-link>
 				</view>
 
 			</uni-forms>
 			<button class="login-submit" type="primary" @click="login">登录</button>
 			<view class="to-register">
-				<uni-link href="/#/pages/user/register" text="没有账号?立即注册"></uni-link>
+				<uni-link href="/pages/user/register" text="没有账号?立即注册"></uni-link>
 			</view>
 		</view>
 
