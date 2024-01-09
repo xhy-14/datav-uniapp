@@ -14,11 +14,14 @@
 					@input="input" @clear="clear" @cancel="cancel">
 				</uni-search-bar>
 			</view>
+
+			<!-- 新建文件夹 -->
 			<view class="right-icon">
 				<uni-link href="https://uniapp.dcloud.io/" text="https://uniapp.dcloud.io/">
 					<uni-icons type="plusempty" size="25"></uni-icons>
 				</uni-link>
 			</view>
+
 			<view class="right-icon">
 				<uni-icons type="list" size="25"></uni-icons>
 			</view>
@@ -42,8 +45,30 @@
 		</view>
 	</view>
 
+
 	<view class="sort-selections">
 		<uni-data-select v-model="value" :localdata="range" @change="change" placeholder="请选择排序方式"></uni-data-select>
+	</view>
+
+	<view>
+		<view class="createFile">
+			<image @tap="imageClick" src="/static/createFile.jpg" style="height: 40px; width: 40px;">
+			</image>
+			<!-- 跳转失败 -->
+		</view>
+
+		<view v-if="tabCur===0">
+			<ul style="list-style-type: none;">
+				<li v-for="(item,index) in dataList">{{index}}-{{item}}</li>
+			</ul>
+
+		</view>
+		<view v-if="tabCur===1">
+			2
+		</view>
+		<view v-if="tabCur===2">
+			3
+		</view>
 	</view>
 	<!-- 	<uni-popup ref="popcenter">
 		<view class="pop">
@@ -85,10 +110,12 @@
 						text: "状态"
 					},
 				],
+				dataList: ['黑猫警长', '小白兔', '小牛', '大鬼'],
 			}
 		},
 		props: {},
 		methods: {
+
 			handleBack() {
 				uni.navigateBack()
 			},
@@ -118,8 +145,13 @@
 			},
 			clickCtTab(ctCur) {
 				this.tabCur = ctCur
+			},
 
-			}
+			imageClick() {
+				uni.navigateTo({
+					url: '/pages/visual/create/index'
+				})
+			},
 		}
 	}
 </script>
@@ -182,7 +214,7 @@
 	}
 
 	swiper-item {
-		width: 150upx !important;
+		width: 170upx !important;
 	}
 
 	.sele-tab-item {
@@ -192,6 +224,12 @@
 	.sort-selections {
 		padding-left: 15px;
 		width: 120px;
+
+	}
+
+	.createFile {
+		position: absolute;
+		padding: 330px 100px 0 280px;
 
 	}
 </style>
