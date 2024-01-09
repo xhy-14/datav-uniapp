@@ -52,6 +52,14 @@
 				"navigationBarTitleText": "Datav",
 				"backgroundColor": "#CCCCCC"
 			}
+		},
+		{
+			"path" : "pages/person/person/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
 		}
 
 	],
