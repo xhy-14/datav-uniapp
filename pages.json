@@ -60,6 +60,54 @@
 				"navigationBarTitleText" : "",
 				"enablePullDownRefresh" : false
 			}
+		},
+		{
+			"path" : "pages/person/person/ModifyInformation",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/person/person/modifyUsername",
+			"style" : 
+			{
+				"navigationBarTitleText" : "修改昵称",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/person/person/modifyEmail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/person/person/modifyMobile",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/person/person/modifyPassword",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/person/VipIndex/VipIndex",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
 		}
 
 	],
@@ -84,7 +132,7 @@
 			"iconPath": "static/create.png",
 			"text": "创建文件"
 		}, {
-			"pagePath": "pages/person/person/index",
+			"pagePath": "pages/person/person/personCenter",
 			"iconPath": "static/person.jpg",
 			"text": "我的"
 		}]

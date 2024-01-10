@@ -44,17 +44,17 @@
 		data() {
 			return {
 				// 默认没有登陆，后期修改判断
-				isLogin: true,
+				isLogin: false,
 				// 每一个对应的路径后期都要改改
 				commonFunctionList: [{
 					url: '../../../static/personalCenter/document.png',
 					text: '我的文档',
-					src: '/pages/user/register',
+					src: '/pages/person/person/index',
 				},
 				{
 					url: '../../../static/personalCenter/people-icon.png',
 					text: '个人信息',
-					src: '/pages/user/login',
+					src: '/pages/person/person/ModifyInformation',
 				},
 				{
 					url: '../../../static/personalCenter/VIp-icon.png',
