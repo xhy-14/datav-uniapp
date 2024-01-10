@@ -10,7 +10,7 @@
 				<uni-icons type="search" size="25"></uni-icons>
 			</view> -->
 			<view class="right-icon">
-				<uni-search-bar @confirm="search" :focus="true" v-model="searchValue" @blur="blur" @focus="focus"
+				<uni-search-bar @confirm="search" :focus="true" v-model="keyword" @blur="blur" @focus="focus"
 					@input="input" @clear="clear" @cancel="cancel">
 				</uni-search-bar>
 			</view>
@@ -58,16 +58,19 @@
 		</view>
 
 		<view v-if="tabCur===0">
-			<ul style="list-style-type: none;">
-				<li v-for="(item,index) in dataList">{{index}}-{{item}}</li>
+			<ul>
+				<li v-for="item in searchList" :key="item">{{item}}</li>
 			</ul>
-
 		</view>
 		<view v-if="tabCur===1">
-			2
+			<ul>
+				<li v-for="item in searchList" :key="item">{{item}}</li>
+			</ul>
 		</view>
 		<view v-if="tabCur===2">
-			3
+			<ul>
+				<li v-for="item in searchList" :key="item">{{item}}</li>
+			</ul>
 		</view>
 	</view>
 	<!-- 	<uni-popup ref="popcenter">
@@ -110,7 +113,13 @@
 						text: "状态"
 					},
 				],
-				dataList: ['黑猫警长', '小白兔', '小牛', '大鬼'],
+				keyword: '',
+				dataList: ['黑猫', '黑狗', '小猪', '小🐏'],
+			}
+		},
+		computed: {
+			searchList() {
+				return this.dataList.filter(item => item.includes(this.keyword));
 			}
 		},
 		props: {},
@@ -122,27 +131,6 @@
 			// toggle() {
 			// 	this.$refs['popcenter'].open();
 			// },
-			search(res) {
-				uni.showToast({
-					title: res.value,
-					icon: 'none'
-				})
-			},
-			input(res) {
-				console.log('input:', res)
-			},
-			clear(res) {
-				uni.showToast({
-					title: res.value,
-					icon: 'none'
-				})
-			},
-			cancel(res) {
-				uni.showToast({
-					title: res.value,
-					icon: 'none'
-				})
-			},
 			clickCtTab(ctCur) {
 				this.tabCur = ctCur
 			},
