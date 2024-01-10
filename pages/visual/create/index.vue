@@ -1,10 +1,12 @@
 <template>
 	<view class="box-bg">
-		<uni-nav-bar left-icon="left" title="上传数据" />
+		<uni-nav-bar shadow left-icon="left" title="上传数据" @clickLeft="back" />
 		<image class="upload-img" src="../../../static/visual/upload.png"></image>
 		<view class="data-input">
-			<uni-easyinput type="textarea" v-model="value" placeholder="将复制的数据粘贴到此处">
-			</uni-easyinput>
+			<form @submit="collectData">
+				<uni-easyinput type="textarea" v-model="value" placeholder="将复制的数据粘贴到此处">
+				</uni-easyinput>
+			</form>
 		</view>
 
 		<view class="sele-location">
@@ -14,7 +16,7 @@
 		</view>
 
 		<view class="next-location">
-			<button @tap="dataNext" class="next-button">下一步 -></button>
+			<button class="next-button" @click="nextClick" form-type="submit">下一步 -></button>
 		</view>
 	</view>
 </template>
@@ -27,14 +29,20 @@
 			}
 		},
 		methods: {
-			// dataNext() {
-			// 	uni.navigateTo({
-			// 			url: '/pages/visual/preview/index'
-			// 		}
-			// 	}
-			// 跳转问题
+			nextClick() {
+				uni.reLaunch({
+					url: '/pages/visual/preview/index'
+				})
+			},
+			back() {
+				uni.navigateBack({
+					delta: 1
+				})
+			},
+			collectData(e) {
+				console.log(e);
+			},
 		}
-
 	}
 </script>
 

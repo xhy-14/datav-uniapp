@@ -16,8 +16,7 @@
 		</view>
 		<view v-if="currentIndex > 2" class="arrow arrow-right">
 			<view style="text-align: center; margin-top: 18px;">
-				<uni-link href="https://uniapp.dcloud.io/" text="开始"
-					style="color: aliceblue;text-decoration: none;"></uni-link>
+				<view style="text-align: center; margin-top: 18px;" @click="startClick">开始</view>
 			</view>
 		</view>
 
@@ -67,7 +66,7 @@
 						image: "/static/guide/guide44.png"
 					},
 				],
-				currentIndex: 2,
+				currentIndex: 0,
 			};
 		},
 		methods: {
@@ -81,6 +80,12 @@
 			},
 			next() {
 				this.currentIndex = (this.currentIndex + 1) % this.swiperList.length;
+			},
+
+			startClick() {
+				uni.reLaunch({
+					url: '/pages/index/index'
+				})
 			},
 		},
 	};

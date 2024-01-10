@@ -1,19 +1,19 @@
 <template>
 	<view class="box-bg">
-		<uni-nav-bar left-icon="left" title="上传数据" />
+		<uni-nav-bar shadow left-icon="left" title="预览数据" @clickLeft="back" />
 		<image class="upload-img" src="../../../static/visual/upload.png"></image>
 		<view class="data-input">
-			<uni-easyinput type="textarea" v-model="value" placeholder="">
+			<uni-easyinput type="textarea" placeholder="">
 			</uni-easyinput>
 		</view>
 
 
 		<view class="back-next">
 			<view class="back-location">
-				<button @tap="dataBack" class="back-button">{{'<-'}} 返回</button>
+				<button @tap="back" class="back-button">{{'<-'}} 返回</button>
 			</view>
 			<view class="next-location">
-				<button @tap="dataNext" class="next-button">下一步 -></button>
+				<button @tap="nextClick" class="next-button">下一步 -></button>
 			</view>
 		</view>
 	</view>
@@ -27,15 +27,19 @@
 			}
 		},
 		methods: {
-			dataBack() {
-				uni.navigateBack()
+			back() {
+				uni.reLaunch({
+					url: '/pages/visual/create/index'
+				})
 			},
-			// dataNext() {
-			// 	uni.navigateTo({
-			// 			url: '/pages/visual/preview/index'
-			// 		}
-			// 	}
-			// 跳转问题
+			nextClick() {
+				uni.reLaunch({
+					url: '/pages/visual/selectChart/index'
+				})
+			},
+		},
+		onLoad(e) {
+			console.log(e);
 		}
 
 	}

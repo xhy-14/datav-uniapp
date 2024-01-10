@@ -1,6 +1,6 @@
 <template>
 	<view class="custom-navigation-bar" style="background-color: whitesmoke;">
-		<view class="left-button" @click="handleBack">
+		<view class="left-button" @click="back">
 			<uni-icons type="back" size="25"></uni-icons>
 		</view>
 		<view class="title">
@@ -95,7 +95,7 @@
 				}, {
 					title: '最近导出',
 				}],
-				value: 0,
+				value: null,
 				range: [{
 						value: 0,
 						text: "创建时间"
@@ -124,9 +124,10 @@
 		},
 		props: {},
 		methods: {
-
-			handleBack() {
-				uni.navigateBack()
+			back() {
+				uni.reLaunch({
+					url: '/pages/person/person/personCenter'
+				})
 			},
 			// toggle() {
 			// 	this.$refs['popcenter'].open();
@@ -136,7 +137,7 @@
 			},
 
 			imageClick() {
-				uni.navigateTo({
+				uni.reLaunch({
 					url: '/pages/visual/create/index'
 				})
 			},
