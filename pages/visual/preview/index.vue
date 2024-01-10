@@ -3,18 +3,18 @@
 		<uni-nav-bar left-icon="left" title="上传数据" />
 		<image class="upload-img" src="../../../static/visual/upload.png"></image>
 		<view class="data-input">
-			<uni-easyinput type="textarea" v-model="value" placeholder="将复制的数据粘贴到此处">
+			<uni-easyinput type="textarea" v-model="value" placeholder="">
 			</uni-easyinput>
 		</view>
 
-		<view class="sele-location">
-			<uni-file-picker v-model="value" file-mediatype="all">
-				<button class="sele-button">选择文件</button>
-			</uni-file-picker>
-		</view>
 
-		<view class="next-location">
-			<button @tap="dataNext" class="next-button">下一步 -></button>
+		<view class="back-next">
+			<view class="back-location">
+				<button @tap="dataBack" class="back-button">{{'<-'}} 返回</button>
+			</view>
+			<view class="next-location">
+				<button @tap="dataNext" class="next-button">下一步 -></button>
+			</view>
 		</view>
 	</view>
 </template>
@@ -27,6 +27,9 @@
 			}
 		},
 		methods: {
+			dataBack() {
+				uni.navigateBack()
+			},
 			// dataNext() {
 			// 	uni.navigateTo({
 			// 			url: '/pages/visual/preview/index'
@@ -50,21 +53,27 @@
 		padding: 50px 50px 50px 50px;
 	}
 
-	.sele-location {
-		padding-top: 35px;
-		padding-right: 170px;
+	.back-next {
+		display: flex;
 	}
 
-	.sele-button {
-		background-color: royalblue;
-		color: white;
+
+	.back-location {
+		width: 100px;
+		padding-top: 95px;
+		padding-left: 50px;
+	}
+
+	.back-button {
+		background-color: white;
+		color: black;
 		width: 100px;
 		font-size: 13px;
 	}
 
 	.next-location {
-		padding-top: 65px;
-		padding-left: 190px;
+		padding-top: 95px;
+		padding-left: 100px;
 	}
 
 	.next-button {
