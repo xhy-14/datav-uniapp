@@ -102,7 +102,7 @@
 			}
 		},
 		{
-			"path" : "pages/person/VipIndex/VipIndex",
+			"path" : "pages/person/VipIndex/vipIndex",
 			"style" : 
 			{
 				"navigationBarTitleText" : "",
@@ -138,7 +138,58 @@
 			}
 		},
 		{
+<<<<<<< HEAD
 			"path" : "pages/person/person/singleFile/index",
+			"style" :
+				{
+					"navigationBarTitleText" : "",
+					"enablePullDownRefresh" : false
+				}
+			},
+		{
+=======
+			"path" : "pages/person/VipIndex/paymoney",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/person/VipIndex/payResult",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/person/person/aboutUs",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/person/person/feedback",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/person/person/settingIndex",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/person/person/guidance",
+>>>>>>> modified pages.json
 			"style" : 
 			{
 				"navigationBarTitleText" : "",
