@@ -59,7 +59,7 @@
 				{
 					url: '../../../static/personalCenter/VIp-icon.png',
 					text: '会员信息',
-					src: '/pages/user/register',
+					src: '/pages/person/VipIndex/vipIndex',
 				},
 				{
 					url: '../../../static/personalCenter/guidance.png',
