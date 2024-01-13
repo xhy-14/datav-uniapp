@@ -10,8 +10,7 @@
 				<uni-icons type="search" size="25"></uni-icons>
 			</view> -->
 			<view class="right-icon">
-				<uni-search-bar @confirm="search" :focus="true" v-model="keyword" @blur="blur" @focus="focus"
-					@input="input" @clear="clear" @cancel="cancel">
+				<uni-search-bar v-model="keyword">
 				</uni-search-bar>
 			</view>
 
@@ -23,7 +22,8 @@
 			</view>
 
 			<view class="right-icon">
-				<uni-icons type="list" size="25"></uni-icons>
+				<uni-icons type="list" size="25" @change="allChoose">
+				</uni-icons>
 			</view>
 		</view>
 	</view>
@@ -45,32 +45,44 @@
 		</view>
 	</view>
 
-
 	<view class="sort-selections">
-		<uni-data-select v-model="value" :localdata="range" @change="change" placeholder="请选择排序方式"></uni-data-select>
+		<uni-data-select v-model="value" :localdata="range" placeholder="请选择排序方式"></uni-data-select>
 	</view>
 
-	<view>
-		<view class="createFile">
-			<image @tap="imageClick" src="/static/createFile.jpg" style="height: 40px; width: 40px;">
-			</image>
-			<!-- 跳转失败 -->
-		</view>
 
+	<view>
+		<view>
+			<image @tap="imageClick" src="/static/createFile.jpg"
+				style="height: 40px; width: 40px;position: absolute; padding-left: 270px;padding-top: 330px ">
+			</image>
+		</view>
 		<view v-if="tabCur===0">
-			<ul>
-				<li v-for="item in searchList" :key="item">{{item}}</li>
-			</ul>
+			<view>
+				<view class=" tl-section">
+					<checkbox-group v-if="searchList" class="block" @change="changeCheckbox">
+						<view v-for="item in searchList" :key="item.id" class="tl-row">
+							<view>
+								<image :src="defaultImg" class="tl-img-100"></image>
+							</view>
+							<view class="tl-center">
+								<view>{{item.name}}</view>
+								<view>{{item.times}}</view>
+							</view>
+							<view>
+								<checkbox :id=" String(item.id)" :checked="checkedArr.includes(String(item.id))"
+									:class="{'checked':checkedArr.includes(String(item.id))}">
+								</checkbox>
+							</view>
+						</view>
+					</checkbox-group>
+				</view>
+			</view>
 		</view>
 		<view v-if="tabCur===1">
-			<ul>
-				<li v-for="item in searchList" :key="item">{{item}}</li>
-			</ul>
+
 		</view>
 		<view v-if="tabCur===2">
-			<ul>
-				<li v-for="item in searchList" :key="item">{{item}}</li>
-			</ul>
+
 		</view>
 	</view>
 	<!-- 	<uni-popup ref="popcenter">
@@ -113,14 +125,55 @@
 						text: "状态"
 					},
 				],
+				isChecked: false,
+				defaultImg: '/static/file/files.jpg',
 				keyword: '',
-				dataList: ['黑猫', '黑狗', '小猪', '小🐏'],
+				dataList: [{
+						id: 0,
+						name: '文件夹1',
+						'times': '01'
+					},
+					{
+						id: 1,
+						name: '我的2',
+						'times': '02'
+					},
+					{
+						id: 2,
+						name: '你的3',
+						'times': '05'
+
+					},
+					{
+						id: 3,
+						name: '文件夹4',
+						'times': '04'
+					},
+					{
+						id: 4,
+						name: '文件夹5',
+						'times': '05'
+					},
+					{
+						id: 5,
+						name: '文件夹6',
+						'times': '06'
+					},
+					{
+						id: 6,
+						name: '文件夹7',
+						'times': '877'
+					},
+				],
+				checkedArr: [], //复选框选中的值
+				allChecked: false
 			}
 		},
 		computed: {
 			searchList() {
-				return this.dataList.filter(item => item.includes(this.keyword));
+				return this.dataList.filter(item => item.name.includes(this.keyword));
 			}
+
 		},
 		props: {},
 		methods: {
@@ -141,7 +194,46 @@
 					url: '/pages/visual/create/index'
 				})
 			},
-		}
+
+
+			checkboxChange(e) {
+				let id = e.detail.id;
+				if (id[0] == 1) {
+					this.isChecked = true;
+				} else {
+					this.isChecked = false;
+				}
+			},
+			// 多选复选框改变事件
+			changeCheckbox(e) {
+				this.checkedArr = e.detail.id;
+				// 如果选择的数组中有值，并且长度等于列表的长度，就是全选
+				if (this.checkedArr.length > 0 && this.checkedArr.length == this.checkboxData.length) {
+					this.allChecked = true;
+				} else {
+					this.allChecked = false;
+				}
+			},
+			// 全选事件
+			allChoose(e) {
+				let chooseItem = e.detail.id;
+				// 全选
+				if (chooseItem[0] == 'all') {
+					this.allChecked = true;
+					for (let item of this.checkboxData) {
+						let itemVal = String(item.id);
+						if (!this.checkedArr.includes(itemVal)) {
+							this.checkedArr.push(itemVal);
+						}
+					}
+				} else {
+					// 取消全选
+					this.allChecked = false;
+					this.checkedArr = [];
+				}
+			},
+		},
+
 	}
 </script>
 
@@ -168,6 +260,9 @@
 		display: flex;
 		padding-top: 10px;
 	}
+
+
+	.createImg {}
 
 	.sele-tab {
 		height: 50px;
@@ -202,6 +297,10 @@
 		width: 100%;
 	}
 
+	.createImg {
+		padding-top: 330px;
+	}
+
 	swiper-item {
 		width: 170upx !important;
 	}
@@ -216,9 +315,36 @@
 
 	}
 
-	.createFile {
-		position: absolute;
-		padding: 330px 100px 0 280px;
+	.tl-section {
+		padding-top: 15px;
+		padding-left: 8px;
+	}
 
+	.tl-row {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		position: relative;
+		height: 160rpx;
+	}
+
+	.tl-img-100 {
+		width: 100rpx;
+		height: 100rpx;
+		background: #C1BFBF;
+		border-radius: 50%;
+	}
+
+	.tl-center {
+		width: 420rpx;
+		margin: 0 46rpx;
+	}
+
+	.tl-font-green {
+		font-size: 28rpx;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: #4DB046;
+		margin-left: 16rpx;
 	}
 </style>
