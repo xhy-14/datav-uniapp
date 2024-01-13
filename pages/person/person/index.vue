@@ -22,8 +22,10 @@
 			</view>
 
 			<view class="right-icon">
-				<uni-icons type="list" size="25" @change="allChoose">
-				</uni-icons>
+				<view :class="['select',SelectId.length==dataList.length?'selectActv':'']" @click="allFun()">
+					<uni-icons type="list" size="25">
+					</uni-icons>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -50,33 +52,29 @@
 	</view>
 
 
+	<image @tap="imageClick" src="/static/createFile.jpg"
+		style="height: 40px; width: 40px;position: fixed; left:280px;top: 480px ">
+	</image>
+
 	<view>
-		<view>
-			<image @tap="imageClick" src="/static/createFile.jpg"
-				style="height: 40px; width: 40px;position: absolute; padding-left: 270px;padding-top: 330px ">
-			</image>
-		</view>
 		<view v-if="tabCur===0">
-			<view>
-				<view class=" tl-section">
-					<checkbox-group v-if="searchList" class="block" @change="changeCheckbox">
-						<view v-for="item in searchList" :key="item.id" class="tl-row">
-							<view>
-								<image :src="defaultImg" class="tl-img-100"></image>
-							</view>
-							<view class="tl-center">
-								<view>{{item.name}}</view>
-								<view>{{item.times}}</view>
-							</view>
-							<view>
-								<checkbox :id=" String(item.id)" :checked="checkedArr.includes(String(item.id))"
-									:class="{'checked':checkedArr.includes(String(item.id))}">
-								</checkbox>
-							</view>
+			<view class=" tl-section">
+				<view class="CheckBox">
+					<view class="CheckItem" v-for="(item,index) in searchList" :key="index">
+						<view>
+							<image :src="defaultImg" class="tl-img-100"></image>
 						</view>
-					</checkbox-group>
+						<view class="tl-center">
+							<view>{{item.name}}</view>
+							<view>{{item.times}}</view>
+						</view>
+						<view :class="['select',SelectId.includes(item.id)?'selectActv':'']"
+							@click="selectFun(item.id)">
+						</view>
+					</view>
 				</view>
 			</view>
+
 		</view>
 		<view v-if="tabCur===1">
 
@@ -128,6 +126,7 @@
 				isChecked: false,
 				defaultImg: '/static/file/files.jpg',
 				keyword: '',
+				SelectId: [],
 				dataList: [{
 						id: 0,
 						name: '文件夹1',
@@ -165,15 +164,13 @@
 						'times': '877'
 					},
 				],
-				checkedArr: [], //复选框选中的值
-				allChecked: false
+
 			}
 		},
 		computed: {
 			searchList() {
 				return this.dataList.filter(item => item.name.includes(this.keyword));
-			}
-
+			},
 		},
 		props: {},
 		methods: {
@@ -195,43 +192,27 @@
 				})
 			},
 
-
-			checkboxChange(e) {
-				let id = e.detail.id;
-				if (id[0] == 1) {
-					this.isChecked = true;
+			selectFun(id) {
+				if (!this.SelectId.includes(id)) {
+					this.SelectId.push(id) // 判断已选列表中是否存在该id，不是则追加进去
 				} else {
-					this.isChecked = false;
+					let index = this.SelectId.indexOf(id) // 求出当前id的所在位置
+					this.SelectId.splice(index, 1) // 否则则删除
 				}
 			},
-			// 多选复选框改变事件
-			changeCheckbox(e) {
-				this.checkedArr = e.detail.id;
-				// 如果选择的数组中有值，并且长度等于列表的长度，就是全选
-				if (this.checkedArr.length > 0 && this.checkedArr.length == this.checkboxData.length) {
-					this.allChecked = true;
+			// 全选、反选
+			allFun() {
+				if (this.SelectId.length == this.dataList.length) {
+					this.SelectId = [] // 判断是否已全部选中，是则清空已选列表
 				} else {
-					this.allChecked = false;
-				}
-			},
-			// 全选事件
-			allChoose(e) {
-				let chooseItem = e.detail.id;
-				// 全选
-				if (chooseItem[0] == 'all') {
-					this.allChecked = true;
-					for (let item of this.checkboxData) {
-						let itemVal = String(item.id);
-						if (!this.checkedArr.includes(itemVal)) {
-							this.checkedArr.push(itemVal);
+					this.dataList.forEach((item) => {
+						if (!this.SelectId.includes(item.id)) {
+							this.SelectId.push(item.id) // 否则将未选中的全部加入已选列表中
 						}
-					}
-				} else {
-					// 取消全选
-					this.allChecked = false;
-					this.checkedArr = [];
+					})
 				}
 			},
+
 		},
 
 	}
@@ -260,9 +241,6 @@
 		display: flex;
 		padding-top: 10px;
 	}
-
-
-	.createImg {}
 
 	.sele-tab {
 		height: 50px;
@@ -305,19 +283,68 @@
 		width: 170upx !important;
 	}
 
+	uni-image {
+		height: 40px;
+	}
+
 	.sele-tab-item {
 		padding-left: 25px;
 	}
 
 	.sort-selections {
+		padding-top: 10px;
 		padding-left: 15px;
 		width: 120px;
 
 	}
 
+	.CheckBox {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+
+	.CheckItem {
+		display: flex;
+		margin: 0px 30px 30px 0px;
+		align-items: center;
+	}
+
+	.select {
+		width: 20px;
+		height: 20px;
+		border-radius: 2px;
+		border: 1px solid #ccc;
+		display: flex;
+		justify-content: center;
+		cursor: pointer;
+		margin-right: 10px;
+		align-items: center;
+	}
+
+	.selectActv::before {
+		display: block;
+		content: "";
+		width: 5px;
+		height: 12px;
+		border-bottom: 2px solid #aaa;
+		border-right: 2px solid #aaa;
+		transform: rotate(45deg);
+	}
+
+	.selectAll {
+		display: flex;
+	}
+
+	.content {
+		width: 500px;
+		margin: 120px auto;
+	}
+
 	.tl-section {
-		padding-top: 15px;
-		padding-left: 8px;
+		padding-left: 15px;
 	}
 
 	.tl-row {
