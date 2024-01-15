@@ -16,9 +16,26 @@
 
 			<!-- 新建文件夹 -->
 			<view class="right-icon">
-				<uni-link href="https://uniapp.dcloud.io/" text="https://uniapp.dcloud.io/">
-					<uni-icons type="plusempty" size="25"></uni-icons>
-				</uni-link>
+				<uni-icons type="plusempty" size="25" @click="createNew"></uni-icons>
+				<uni-popup ref="popup">
+					<uni-popup-dialog title="新建文件夹">
+						<view>
+							<view style="display: flex;">
+								<view>
+									文件夹名:
+								</view>
+								<view>
+									<input class="uni-input" />
+								</view>
+							</view>
+							<br />
+							<view>简介:</view>
+							<view>
+								<input class="uni-input" />
+							</view>
+						</view>
+					</uni-popup-dialog>
+				</uni-popup>
 			</view>
 
 			<view class="right-icon">
@@ -30,42 +47,76 @@
 		</view>
 	</view>
 
-	<view>
-		<view class="selection-operate">
-			<swiper class="sele-tab">
-				<swiper-item :class="{ 'sele-active': index == tabCur }" v-for="(item, index) in tabList" :key="index"
-					class="sele-item" @click="clickCtTab(index)">
-					<text v-text="item.title" class="sele-tab-item"></text>
-				</swiper-item>
-			</swiper>
-			<view v-if="tabCur===0">
-			</view>
-			<view v-if="tabCur===1">
-			</view>
-			<view v-if="tabCur===2">
-			</view>
-		</view>
-	</view>
-
-	<view class="sort-selections">
-		<uni-data-select v-model="value" :localdata="range" placeholder="请选择排序方式"></uni-data-select>
-	</view>
-
 
 	<image @tap="imageClick" src="/static/createFile.jpg"
 		style="height: 40px; width: 40px;position: fixed; left:280px;top: 480px ">
 	</image>
 
 	<view>
+		<view>
+			<view class="selection-operate">
+				<swiper class="sele-tab">
+					<swiper-item :class="{ 'sele-active': index == tabCur }" v-for="(item, index) in tabList"
+						:key="index" class="sele-item" @click="clickCtTab(index)">
+						<text v-text="item.title" class="sele-tab-item"></text>
+					</swiper-item>
+				</swiper>
+				<view v-if="tabCur===0">
+				</view>
+				<view v-if="tabCur===1">
+				</view>
+				<view v-if="tabCur===2">
+				</view>
+			</view>
+		</view>
+		<view style="display: flex;">
+			<view class="sort-selections">
+				<uni-data-select v-model="value" :localdata="range" placeholder="请选择排序方式"></uni-data-select>
+			</view>
+			<view class="button-postion" v-if="this.SelectId.length>0">
+				<button class="del-button">删除</button>
+			</view>
+			<view class="edit-postion" v-if="this.SelectId.length==1">
+				<button class="edit-button">编辑</button>
+			</view>
+		</view>
+
 		<view v-if="tabCur===0">
 			<view class=" tl-section">
 				<view class="CheckBox">
-					<view class="CheckItem" v-for="(item,index) in searchList" :key="index">
-						<view>
+					<view class="CheckItem" v-if="value!==0 && value!==1" v-for="(item,index) in searchList"
+						:key="index">
+						<view @tap="gotoFile(item.id)">
 							<image :src="defaultImg" class="tl-img-100"></image>
 						</view>
 						<view class="tl-center">
-							<view>{{item.name}}</view>
+							<view @tap="gotoFile(item.id)">{{item.name}}</view>
+							<view>{{item.times}}</view>
+						</view>
+						<view :class="['select',SelectId.includes(item.id)?'selectActv':'']"
+							@click="selectFun(item.id)">
+						</view>
+					</view>
+
+					<view class="CheckItem" v-if="value===1" v-for="item in sortByName" :key="item.name">
+						<view @tap="gotoFile(item.id)">
+							<image :src="defaultImg" class="tl-img-100"></image>
+						</view>
+						<view class="tl-center">
+							<view @tap="gotoFile(item.id)">{{item.name}}</view>
+							<view>{{item.times}}</view>
+						</view>
+						<view :class="['select',SelectId.includes(item.id)?'selectActv':'']"
+							@click="selectFun(item.id)">
+						</view>
+					</view>
+
+					<view class="CheckItem" v-if="value===0" v-for="item in sortByTime" :key="item.times">
+						<view @tap="gotoFile(item.id)">
+							<image :src="defaultImg" class="tl-img-100"></image>
+						</view>
+						<view class="tl-center">
+							<view @tap="gotoFile(item.id)">{{item.name}}</view>
 							<view>{{item.times}}</view>
 						</view>
 						<view :class="['select',SelectId.includes(item.id)?'selectActv':'']"
@@ -74,10 +125,8 @@
 					</view>
 				</view>
 			</view>
-
 		</view>
 		<view v-if="tabCur===1">
-
 		</view>
 		<view v-if="tabCur===2">
 
@@ -112,15 +161,7 @@
 					},
 					{
 						value: 1,
-						text: "发布时间"
-					},
-					{
-						value: 2,
 						text: "文件名"
-					},
-					{
-						value: 3,
-						text: "状态"
 					},
 				],
 				isChecked: false,
@@ -130,38 +171,38 @@
 				dataList: [{
 						id: 0,
 						name: '文件夹1',
-						'times': '01'
+						'times': '2019-06-06'
 					},
 					{
 						id: 1,
-						name: '我的2',
-						'times': '02'
+						name: '我的12',
+						'times': '2023-01-06'
 					},
 					{
 						id: 2,
 						name: '你的3',
-						'times': '05'
+						'times': '2012-02-06'
 
 					},
 					{
 						id: 3,
-						name: '文件夹4',
-						'times': '04'
+						name: '文件夹7',
+						'times': '2019-02-06'
 					},
 					{
 						id: 4,
-						name: '文件夹5',
-						'times': '05'
+						name: '文件0',
+						'times': '2019-06-06'
 					},
 					{
 						id: 5,
-						name: '文件夹6',
-						'times': '06'
+						name: '文件夹2',
+						'times': '2009-02-06'
 					},
 					{
 						id: 6,
 						name: '文件夹7',
-						'times': '877'
+						'times': '2019-02-07'
 					},
 				],
 
@@ -171,6 +212,24 @@
 			searchList() {
 				return this.dataList.filter(item => item.name.includes(this.keyword));
 			},
+
+			sortByName() {
+				return this.dataList.sort((a, b) => {
+					if (a.name < b.name) {
+						return -1
+					} else if (a.name > b.name) {
+						return 1
+					} else {
+						return 0
+					}
+				})
+			},
+
+			sortByTime() {
+				return this.sortKey(this.dataList, "times");
+			},
+
+
 		},
 		props: {},
 		methods: {
@@ -194,23 +253,42 @@
 
 			selectFun(id) {
 				if (!this.SelectId.includes(id)) {
-					this.SelectId.push(id) // 判断已选列表中是否存在该id，不是则追加进去
+					this.SelectId.push(id)
 				} else {
-					let index = this.SelectId.indexOf(id) // 求出当前id的所在位置
-					this.SelectId.splice(index, 1) // 否则则删除
+					let index = this.SelectId.indexOf(id)
+					this.SelectId.splice(index, 1)
 				}
 			},
-			// 全选、反选
+
 			allFun() {
 				if (this.SelectId.length == this.dataList.length) {
 					this.SelectId = [] // 判断是否已全部选中，是则清空已选列表
 				} else {
 					this.dataList.forEach((item) => {
 						if (!this.SelectId.includes(item.id)) {
-							this.SelectId.push(item.id) // 否则将未选中的全部加入已选列表中
+							this.SelectId.push(item.id)
 						}
 					})
 				}
+			},
+
+			gotoFile(id) {
+				uni.navigateTo({
+					url: '/pages/person/person/singleFile/index?id=' + id
+				})
+			},
+
+			createNew() {
+				this.$refs.popup.open()
+			},
+
+
+			sortKey(array, key) {
+				return array.sort(function(a, b) {
+					var x = a[key];
+					var y = b[key];
+					return x > y ? -1 : x < y ? 1 : 0;
+				});
 			},
 
 		},
@@ -296,6 +374,34 @@
 		padding-left: 15px;
 		width: 120px;
 
+	}
+
+	.edit-postion {
+		padding-top: 13px;
+		padding-left: 20px;
+	}
+
+	.edit-button {
+		height: 30px;
+		width: 60px;
+		font-size: 10px;
+		text-align: center;
+		background-color: limegreen;
+		color: whitesmoke;
+	}
+
+	.button-postion {
+		padding-top: 13px;
+		padding-left: 60px;
+	}
+
+	.del-button {
+		height: 30px;
+		width: 60px;
+		font-size: 10px;
+		text-align: center;
+		background-color: indianred;
+		color: whitesmoke;
 	}
 
 	.CheckBox {
