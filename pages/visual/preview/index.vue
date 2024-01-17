@@ -1,7 +1,7 @@
 <template>
 	<view class="box-bg">
 		<uni-nav-bar shadow left-icon="left" title="预览数据" @clickLeft="back" />
-		<image class="upload-img" src="../../../static/visual/upload.png"></image>
+		<image class="upload-img" src="../../../static/visual/20.png"></image>
 		<view class="data-input">
 			<uni-easyinput type="textarea" name="dataForm" placeholder="">
 			</uni-easyinput>
@@ -87,7 +87,7 @@
 	}
 
 	.next-button {
-		background-color: lightgreen;
+		background-color: #43CF7C;
 		color: white;
 		width: 100px;
 		font-size: 13px;

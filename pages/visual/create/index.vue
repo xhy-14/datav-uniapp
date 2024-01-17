@@ -75,7 +75,7 @@
 	}
 
 	.next-button {
-		background-color: lightgreen;
+		background-color: #43CF7C;
 		color: white;
 		width: 100px;
 		font-size: 13px;

@@ -138,16 +138,14 @@
 			}
 		},
 		{
-<<<<<<< HEAD
 			"path" : "pages/person/person/singleFile/index",
 			"style" :
 				{
 					"navigationBarTitleText" : "",
 					"enablePullDownRefresh" : false
 				}
-			},
+		},
 		{
-=======
 			"path" : "pages/person/VipIndex/paymoney",
 			"style" : 
 			{
@@ -189,13 +187,13 @@
 		},
 		{
 			"path" : "pages/person/person/guidance",
->>>>>>> modified pages.json
 			"style" : 
 			{
 				"navigationBarTitleText" : "",
 				"enablePullDownRefresh" : false
 			}
-		}
+		},
+		
 
 	],
 	"globalStyle": {
