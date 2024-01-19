@@ -129,17 +129,8 @@
 		<view v-if="tabCur===1">
 		</view>
 		<view v-if="tabCur===2">
-
 		</view>
 	</view>
-	<!-- 	<uni-popup ref="popcenter">
-		<view class="pop">
-			<uni-search-bar @confirm="search" :focus="true" v-model="searchValue" @blur="blur" @focus="focus"
-				@input="input" @clear="clear" @cancel="cancel">
-			</uni-search-bar>
-		</view>
-	</uni-popup> -->
-	<!-- 搜索弹出 -->
 </template>
 
 <script>
@@ -238,9 +229,7 @@
 					url: '/pages/person/person/personCenter'
 				})
 			},
-			// toggle() {
-			// 	this.$refs['popcenter'].open();
-			// },
+
 			clickCtTab(ctCur) {
 				this.tabCur = ctCur
 			},
