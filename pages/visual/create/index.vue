@@ -2,35 +2,33 @@
 	<view class="box-bg">
 		<uni-nav-bar shadow left-icon="left" title="上传数据" @clickLeft="back" />
 		<image class="upload-img" src="../../../static/visual/upload.png"></image>
-		<view class="data-input">
-			<form @submit="collectData">
-				<uni-easyinput type="textarea" v-model="value" placeholder="将复制的数据粘贴到此处">
+		<form @submit="collectData">
+			<view class="data-input">
+				<uni-easyinput type="textarea" name="dataForm" placeholder="将复制的数据粘贴到此处">
 				</uni-easyinput>
-			</form>
-		</view>
+			</view>
 
-		<view class="sele-location">
-			<uni-file-picker v-model="value" file-mediatype="all">
-				<button class="sele-button">选择文件</button>
-			</uni-file-picker>
-		</view>
+			<view class="sele-location">
+				<uni-file-picker name="dataForm" file-mediatype="all">
+					<button class="sele-button">选择文件</button>
+				</uni-file-picker>
+			</view>
 
-		<view class="next-location">
-			<button class="next-button" @click="nextClick" form-type="submit">下一步 -></button>
-		</view>
+			<view class="next-location">
+				<button class="next-button" @click="nextClick" form-type="submit">下一步 -></button>
+			</view>
+		</form>
 	</view>
 </template>
 
 <script>
 	export default {
 		data() {
-			return {
-
-			}
+			return {}
 		},
 		methods: {
 			nextClick() {
-				uni.reLaunch({
+				uni.navigateTo({
 					url: '/pages/visual/preview/index'
 				})
 			},
@@ -40,7 +38,8 @@
 				})
 			},
 			collectData(e) {
-				console.log(e);
+				console.log(e.detail.value)
+				// console.log(e);
 			},
 		}
 	}

@@ -3,7 +3,7 @@
 		<uni-nav-bar shadow left-icon="left" title="预览数据" @clickLeft="back" />
 		<image class="upload-img" src="../../../static/visual/upload.png"></image>
 		<view class="data-input">
-			<uni-easyinput type="textarea" placeholder="">
+			<uni-easyinput type="textarea" name="dataForm" placeholder="">
 			</uni-easyinput>
 		</view>
 
@@ -37,10 +37,16 @@
 					url: '/pages/visual/selectChart/index'
 				})
 			},
+			nextClick() {
+				uni.reLaunch({
+					url: '/pages/visual/selectChart/index'
+				})
+			},
 		},
+
 		onLoad(e) {
 			console.log(e);
-		}
+		},
 
 	}
 </script>

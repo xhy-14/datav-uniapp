@@ -111,10 +111,27 @@
 							return;
 						}
 						else{
-							this.messageToggle("success","欢迎登录");
-							uni.reLaunch({
-								url: '/pages/index/index'
+							let user = {
+								name: res.data.user.name,
+								mobile: res.data.user.mobile,
+								token: res.data.token
+							}
+							// 登录成功，存储用户的信息
+							uni.setStorageSync({
+								key: 'nowUser',
+								data: user
 							})
+							
+							this.messageToggle("success","欢迎登录");
+							uni.getStorageSync({
+								key: 'nowUser',
+								success: function(res){
+									console.log(res)
+								}
+							})
+							// uni.reLaunch({
+							// 	url: '/pages/index/index'
+							// })
 						}
 					})
 					.catch(err => {

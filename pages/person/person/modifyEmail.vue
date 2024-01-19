@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="box-bg">
-			<uni-nav-bar shadow  left-text="取消" @clickLeft="back" title="修改电子邮箱" />
+			<uni-nav-bar shadow left-text="取消" @clickLeft="back" title="修改电子邮箱" />
 		</view>
 		<uni-easyinput class="inputM" trim="all" v-model="newEmail"
 		placeholder="请输入电子邮箱" placeholderStyle="color:#A6A6A6;font-size:16px"
@@ -26,14 +26,18 @@
 	export default {
 		data() {
 			return {
+<<<<<<< HEAD
 				newEmail: '',
 				captcha: '',
 				msgType: '',
 				messageText: ''
+=======
+
+>>>>>>> 740ce987c8ed263385105d24aa441e7f408e9d32
 			}
 		},
 		methods: {
-			back(){
+			back() {
 				uni.reLaunch({
 					url: '/pages/person/person/ModifyInformation'
 				})
@@ -56,6 +60,7 @@
 </script>
 
 <style>
+<<<<<<< HEAD
 	.inputM{
 		margin-top: 50px;
 		margin-left: 20px;
@@ -74,3 +79,7 @@
 		width: 330px;
 	}
 </style>
+=======
+
+</style>
+>>>>>>> 740ce987c8ed263385105d24aa441e7f408e9d32
