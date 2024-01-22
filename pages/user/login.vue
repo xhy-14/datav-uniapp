@@ -26,13 +26,13 @@
 						<radio value="r2" @click="change()" :checked="remberPassword" />记住密码
 					</label>
 
-					<uni-link href="/pages/user/forgetPassword" text="忘记密码?"></uni-link>
+					<uni-link href="#/pages/user/forgetPassword" text="忘记密码?"></uni-link>
 				</view>
 
 			</uni-forms>
 			<button class="login-submit" type="primary" @click="login">登录</button>
 			<view class="to-register">
-				<uni-link href="/pages/user/register" text="没有账号?立即注册"></uni-link>
+				<uni-link href="#/pages/user/register" text="没有账号?立即注册"></uni-link>
 			</view>
 		</view>
 
@@ -117,21 +117,14 @@
 								token: res.data.token
 							}
 							// 登录成功，存储用户的信息
-							uni.setStorageSync({
-								key: 'nowUser',
-								data: user
-							})
-							
+							uni.setStorageSync('nowUser',user)
 							this.messageToggle("success","欢迎登录");
-							uni.getStorageSync({
-								key: 'nowUser',
-								success: function(res){
-									console.log(res)
-								}
+							// 获取用户信息例子
+							const nowUser = uni.getStorageSync('nowUser')
+							console.log(nowUser)
+							uni.reLaunch({
+								url: '/pages/index/index'
 							})
-							// uni.reLaunch({
-							// 	url: '/pages/index/index'
-							// })
 						}
 					})
 					.catch(err => {

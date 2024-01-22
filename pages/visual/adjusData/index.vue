@@ -9,6 +9,15 @@
 		<view class="chart-container">
 		  <canvas class="chart" id="my-chart"></canvas>
 		</view>
+		
+		<view class="back-next">
+			<view class="back-location">
+				<button @tap="backButton" class="back-button">{{'<-'}} 返回</button>
+			</view>
+			<view class="next-location">
+				<button @tap="nextClick" class="next-button">下一步</button>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -21,7 +30,11 @@
 			}
 		},
 		methods: {
-			
+			nextClick(){
+				uni.navigateTo({
+					url: '/pages/visual/comments/index'
+				})
+			}
 		},
 		mounted() {
 		  const chartDom = document.getElementById('my-chart');
@@ -72,5 +85,39 @@
 		  height: 300px;
 		  width: 300px;
 		  margin: 20px auto;
+	}
+	.back-next {
+		display: flex;
+		margin-bottom: 20px;
+	}
+	
+	
+	.back-location {
+		width: 100px;
+		padding-top: 95px;
+		padding-left: 50px;
+	}
+	
+	.back-button {
+		background-color: white;
+		color: black;
+		width: 100px;
+		font-size: 13px;
+	}
+	
+	.next-location {
+		padding-top: 95px;
+		padding-left: 80px;
+	}
+	
+	.next-button {
+		background-color: #43CF7C;
+		color: white;
+		width: 100px;
+		font-size: 13px;
+		height: 50px;
+		justify-content: center;
+		align-items: center;
+		display: flex;
 	}
 </style>

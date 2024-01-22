@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <template>
 	<view>
 		<view class="box-bg">
@@ -229,6 +228,3 @@
 		border-radius: 20px;
 	}
 </style>
-=======
-<template></template>
->>>>>>> 740ce987c8ed263385105d24aa441e7f408e9d32

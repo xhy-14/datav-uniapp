@@ -1,10 +1,11 @@
 <template>
 	<view class="content">
-		<form @submit="formSubmit(userInfo)" v-model="userInfo">
+		<!-- <form @submit="formSubmit(userInfo)" v-model="userInfo">
 			<input type="text" v-model="userInfo.userName" placeholder="用户" />
 			<input type="text" v-model="userInfo.password" password="" placeholder="密码" />
 			<button type="primary" form-type="submit">登录</button>
-		</form>
+		</form> -->
+	</view>
 	<view>
 		<view class="box-bg">
 			<uni-nav-bar shadow left-icon="left" title="添加注释" @clickLeft="back" />
@@ -29,6 +30,7 @@
 		
 		<button type="primary" class="submitButton" @click="submit1">提交</button>
 		
+		<!-- 图表 -->
 		<view class="chart-container">
 		  <canvas class="chart" id="my-chart"></canvas>
 		</view>
@@ -38,30 +40,28 @@
 				<button @tap="backButton" class="back-button">{{'<-'}} 返回</button>
 			</view>
 			<view class="next-location">
-				<button @tap="nextClick" class="next-button">完成</button>
+				<button @tap="nextClick" class="next-button">下一步</button>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-<<<<<<< HEAD
-	export default {
-		data() {
-			return {
-				userInfo: {
-					userName: '',
-					password: ''
-				}
-			}
-		},
-		methods: {
-			formSubmit(e) {
-				console.log(e)
-			}
-		}
-	}
-</script>
+	// export default {
+	// 	data() {
+	// 		return {
+	// 			userInfo: {
+	// 				userName: '',
+	// 				password: ''
+	// 			}
+	// 		}
+	// 	},
+	// 	methods: {
+	// 		formSubmit(e) {
+	// 			console.log(e)
+	// 		}
+	// 	}
+	// }
 	import * as echarts from 'echarts'
 	export default {
 		data() {
@@ -76,6 +76,11 @@
 				console.log(this.title)
 				console.log(this.author)
 				console.log(this.instruction)
+			},
+			nextClick(){
+				uni.navigateTo({
+					url: '/pages/visual/exportChart/exportChart'
+				})
 			}
 		},
 		mounted() {

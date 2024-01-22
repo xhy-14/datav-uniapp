@@ -26,14 +26,10 @@
 	export default {
 		data() {
 			return {
-<<<<<<< HEAD
 				newEmail: '',
 				captcha: '',
 				msgType: '',
 				messageText: ''
-=======
-
->>>>>>> 740ce987c8ed263385105d24aa441e7f408e9d32
 			}
 		},
 		methods: {
@@ -60,7 +56,7 @@
 </script>
 
 <style>
-<<<<<<< HEAD
+
 	.inputM{
 		margin-top: 50px;
 		margin-left: 20px;
@@ -79,7 +75,6 @@
 		width: 330px;
 	}
 </style>
-=======
 
-</style>
->>>>>>> 740ce987c8ed263385105d24aa441e7f408e9d32
+
+

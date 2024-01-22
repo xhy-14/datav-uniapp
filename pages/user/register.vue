@@ -17,7 +17,7 @@
 			</uni-forms>
 			<button class="register-submit" type="primary" @click="register">注册</button>
 			<view class="to-register">
-				<uni-link href="/pages/user/login" text="已有账号?立即登录"></uni-link>
+				<uni-link href="/#/pages/user/login" text="已有账号?立即登录"></uni-link>
 			</view>
 			<uni-popup class="loginMessage" ref="loginMessage" type="message">
 				<uni-popup-message :type="msgType" :message="messageText" duration="2000"></uni-popup-message>

@@ -3,7 +3,8 @@ import http from '../http.js'
 const API = {
 	CAPTCHA: "/captcha.jpg",
 	LOGIN: "/app/login",
-	REGISTER: "/app/register "
+	REGISTER: "/app/register ",
+	GETUSERINFO: "/app/user/info"
 }
 
 export function loginApi(userForm) {
@@ -17,3 +18,7 @@ export async function getCaptchaApi(uuid) {
 export function registerApi(userForm) {
 	return http.POST(API.REGISTER, userForm)
 }  
+
+export function getUserInfo(token){
+	return http.GET(API.GETUSERINFO,{token: token})
+}

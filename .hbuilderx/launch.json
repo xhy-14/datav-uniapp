@@ -4,6 +4,17 @@
         {
             "playground" : "standard",
             "type" : "uni-app:app-ios"
-        }
+        },
+        {
+            "playground" : "standard",
+            "type" : "uni-app:app-android"
+        },
+	{
+		"app-plus" : 
+		{
+			"launchtype" : "local"
+		},
+		"type" : "uniCloud"
+	}
     ]
 }
