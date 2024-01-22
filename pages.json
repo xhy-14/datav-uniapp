@@ -193,6 +193,30 @@
 				"enablePullDownRefresh" : false
 			}
 		},
+		{
+			"path" : "pages/visual/exportChart/exportChart",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/visual/exportChart/text",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		},
+		{
+			"path" : "pages/visual/exportChart/test",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		}
 		
 
 	],
