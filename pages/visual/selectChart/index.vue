@@ -5,34 +5,35 @@
 	</view>
 	<view v-if="noVip">
 		<view class="tips"><text>识别到您是普通用户，Dataswap只提供两个图形</text></view>
-		
-		
+
+
 		<swiper class="swiper" :indicator-dots="true">
 			<swiper-item>
 				<uni-grid :column="3" borderColor="#ebf3f9" :highlight="true" @change="change">
-					<uni-grid-item v-for="(item, index) in noVipList" :index="index" :key="index" style=" height: 100px;">
-						<view class="grid-item-box" >
+					<uni-grid-item v-for="(item, index) in noVipList" :index="index" :key="index"
+						style=" height: 100px;">
+						<view class="grid-item-box">
 							<image :src="item.url" class="image" mode="aspectFill" />
 							<text class="text">{{ item.text }}</text>
 						</view>
 					</uni-grid-item>
 				</uni-grid>
 			</swiper-item>
-			</swiper>
+		</swiper>
 	</view>
 	<view v-else>
 		<swiper class="swiper" :indicator-dots="true">
 			<swiper-item>
 				<uni-grid :column="3" borderColor="#ebf3f9" :highlight="true" @change="change">
 					<uni-grid-item v-for="(item, index) in VipList" :index="index" :key="index" style=" height: 100px;">
-						<view class="grid-item-box" >
+						<view class="grid-item-box">
 							<image :src="item.url" class="image" mode="aspectFill" />
 							<text class="text">{{ item.text }}</text>
 						</view>
 					</uni-grid-item>
 				</uni-grid>
 			</swiper-item>
-			</swiper>
+		</swiper>
 	</view>
 
 
@@ -42,11 +43,14 @@
 
 	<view class="back-next">
 		<view class="back-location">
-			<router-link to="/pages/visual/preview/index" class="back-button">{{'<-'}} 返回</router-link>
+			<button type="default" class="back-button" @click="back">
+				{{'<-'}} 返回
+			</button>
 		</view>
 		<view class="next-location">
-			<router-link to="/pages/visual/adjusData/index" class="back-button">下一步 -></router-link>
-
+			<button type="default" class="next-button" @click="goto('/pages/visual/adjusData/index')">
+				下一步 ->
+			</button>
 		</view>
 	</view>
 
@@ -54,7 +58,7 @@
 
 <script lang="ts" setup>
 	import * as echarts from 'echarts'
-	import { useRouter  } from 'vue-router'
+	import { useRouter } from 'vue-router'
 	import { onMounted, ref, nextTick, watch } from 'vue'
 	import { useChartStore } from '/store/chart';
 	let noVip = true
@@ -112,21 +116,21 @@
 		text: '堆叠柱形图'
 	}
 	]
-	
+
 	var chartInfo = useChartStore().options
 	let type = ref('line')
-	const change=(e)=>{
+	const change = (e) => {
 		let { index } = e.detail
-		if(index == 0 ){
-			type.value ='line'
-			
+		if (index == 0) {
+			type.value = 'line'
+
 		}
-		else if( index == 1){
+		else if (index == 1) {
 			type.value = 'bar'
 		}
-		console.log(type.value,'type value',index,'index')
+		console.log(type.value, 'type value', index, 'index')
 		document.getElementById('my-chart').removeAttribute("_echarts_instance_");
-		  document.getElementById('my-chart').innerHTML = "";
+		document.getElementById('my-chart').innerHTML = "";
 		initChart()
 	}
 	const initChart = () => {
@@ -166,31 +170,29 @@
 			}
 			useChartStore().setOptions(option)
 		})
-		}
-		onMounted(() => {
-		  // 基于准备好的dom，初始化echarts实例
-		  chartInfo = useChartStore().options
-		  initChart()
-		  console.log(chartInfo)
+	}
+	onMounted(() => {
+		// 基于准备好的dom，初始化echarts实例
+		chartInfo = useChartStore().options
+		initChart()
+		console.log(chartInfo)
+	})
+
+	const back = () => {
+		uni.reLaunch({
+			url: '/pages/visual/preview/index'
 		})
+		document.getElementById('my-chart').removeAttribute("_echarts_instance_");
+		document.getElementById('my-chart').innerHTML = "";
+	}
+	let router = useRouter()
 
-		const back = () => {
-			uni.reLaunch({
-				url: '/pages/visual/preview/index'
-			})
-		}
-		let router = useRouter().currentRoute.value.path
+	const goto = (url : any) => {
+		uni.navigateTo({
+			url: url
+		})
+	}
 
-		watch(
-		router,
-		(newValue,oldValue)=>{
-			if(newValue =='/pages/visual/selectChart/index'){
-			chartInfo = useChartStore().options
-				initChart()
-			}
-		}
-		
-		)
 </script>
 
 <style scoped>
@@ -243,14 +245,15 @@
 
 	.back-next {
 		display: flex;
-		margin-bottom: 20px;
+		margin-top: 20px;
+		left: 10px;
 	}
 
 
 	.back-location {
 		width: 100px;
-		padding-top: 95px;
-		padding-left: 50px;
+		top: 95px;
+		left: 60px;
 	}
 
 	.back-button {
@@ -258,11 +261,13 @@
 		color: black;
 		width: 100px;
 		font-size: 13px;
+		left: 15px;
 	}
 
 	.next-location {
-		padding-top: 95px;
-		padding-left: 100px;
+		top: 95px;
+		left: 100px;
+		margin-left: 160px;
 	}
 
 	.next-button {
