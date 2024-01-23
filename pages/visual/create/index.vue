@@ -24,7 +24,6 @@
 				下一步 ->
 			</button>
 		</view>
-		
 	</view>
 </template>
 

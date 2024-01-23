@@ -48,7 +48,7 @@
 			</button>
 		</view>
 		<view class="next-location">
-			<button type="default" class="next-button" @click="goto('/pages/visual/adjusData/index')">
+			<button type="default" class="next-button" @click="goto('/pages/visual/comments/index')">
 				下一步 ->
 			</button>
 		</view>
@@ -140,28 +140,7 @@
 			var option = chartInfo
 
 			console.log("option view", option)
-			const option_pie = {
-				series: [
-					{
-						type: 'pie',
-
-						data: [
-							{
-								value: 335,
-								name: '1'
-							},
-							{
-								value: 234,
-								name: '2'
-							},
-							{
-								value: 1548,
-								name: '3'
-							}
-						]
-					}
-				]
-			};
+			
 			if (type.value == 'pie') { myChart.setOption(option_pie); }
 			else {
 				console.log("option view", option)

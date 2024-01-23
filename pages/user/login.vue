@@ -7,15 +7,16 @@
 		</view>
 		<view class="login-continer">
 			<uni-forms :modelValue="loginForm">
-				<uni-easyinput prefixIcon="phone" v-model="loginForm.mobile" placeholder="请输入电话号码 ">
+				<uni-easyinput prefixIcon="email" v-model="loginForm.email" placeholder="请输入账号 ">
 				</uni-easyinput>
 
-				<uni-easyinput style="margin-top: 20px;" prefixIcon="locked" v-model="loginForm.password"
+				<uni-easyinput type="password" style="margin-top: 20px;" prefixIcon="locked" v-model="loginForm.password"
 					placeholder="请输入密码">
 				</uni-easyinput>
+				
 
 				<view class="captcha">
-					<input password v-model="loginForm.captcha" class="uni-input captcha-input" type="text"
+					<input  v-model="loginForm.captcha" class="uni-input captcha-input" type="text"
 						placeholder="请输入验证码" />
 					<cover-image :src="captchaPath"></cover-image>
 				</view>
@@ -56,7 +57,7 @@
 		data() {
 			return {
 				loginForm: {
-					mobile: "",
+					email: "",
 					password: "",
 					captcha: "",
 					uuid: ""

@@ -12,7 +12,7 @@
 		
 		<view class="back-next">
 			<view class="back-location">
-				<button @tap="backButton" class="back-button">{{'<-'}} 返回</button>
+				<button @tap="back" class="back-button">{{'<-'}} 返回</button>
 			</view>
 			<view class="next-location">
 				<button @tap="nextClick" class="next-button">下一步</button>
@@ -33,6 +33,11 @@
 			nextClick(){
 				uni.navigateTo({
 					url: '/pages/visual/comments/index'
+				})
+			},
+			back(){
+				uni.reLaunch({
+					url: '/pages/visual/selectChart/index'
 				})
 			}
 		},

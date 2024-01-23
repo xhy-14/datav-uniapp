@@ -22,6 +22,7 @@
 
 <script>
 	import * as echarts from 'echarts' 
+	import { useChartStore } from '/store/chart';
 	// 一定要先定义，后面再定义就不是一个东西了，一定要是echart的实例
 	var myChart = {}
 	var chartDom = {}
@@ -87,9 +88,10 @@
 			
 			},
 			
+			
 			backButton(){
 				uni.navigateTo({
-					url: '/pages/user/login'
+					url: '/pages/visual/comments/index'
 				})
 			}
 			
@@ -98,21 +100,7 @@
 		  chartDom = document.getElementById('my-chart');
 		  myChart = echarts.init(chartDom)
 		  
-		  const option = {
-		    title: {
-		      text: 'ECharts 示例'
-		    },
-		    tooltip: {},
-		    xAxis: {
-		      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-		    },
-		    yAxis: {},
-		    series: [{
-		      name: '销量',
-		      type: 'bar',
-		      data: [5, 20, 36, 10, 10, 20, 15]
-		    }]
-		  }
+		  const option = useChartStore().options
 		  
 		  myChart.setOption(option)
 		}
